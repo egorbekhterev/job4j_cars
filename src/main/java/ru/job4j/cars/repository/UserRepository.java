@@ -47,7 +47,7 @@ public class UserRepository {
      * @return список пользователей.
      */
     public List<User> findAllOrderById() {
-        return crudRepository.query("FROM User ORDER BY id ASC", User.class);
+        return crudRepository.query("SELECT DISTINCT i FROM User i ORDER BY i.id", User.class);
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserRepository {
      */
     public Optional<User> findById(int id) {
         return crudRepository.optional(
-                "FROM User WHERE id = :fId", User.class, Map.of("fId", id)
+                "SELECT DISTINCT i FROM User i WHERE i.id = :fId", User.class, Map.of("fId", id)
         );
     }
 
@@ -67,7 +67,7 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         return crudRepository.query(
-                "FROM User WHERE login like :fKey", User.class, Map.of("fKey", "%" + key + "%")
+                "SELECT DISTINCT i FROM User i WHERE i.login like :fKey", User.class, Map.of("fKey", "%" + key + "%")
         );
     }
 
@@ -78,6 +78,6 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         return crudRepository.optional(
-                "FROM User WHERE LOGIN = :fLogin", User.class, Map.of("fLogin", login));
+                "SELECT DISTINCT i FROM User i WHERE i.LOGIN = :fLogin", User.class, Map.of("fLogin", login));
     }
 }

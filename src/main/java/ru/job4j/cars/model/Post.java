@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "auto_post")
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -42,4 +43,8 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "post_id") }
     )
     private List<User> participates = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 }
