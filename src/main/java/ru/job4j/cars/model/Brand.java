@@ -2,32 +2,24 @@ package ru.job4j.cars.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 /**
  * @author: Egor Bekhterev
- * @date: 08.03.2023
+ * @date: 18.03.2023
  * @project: job4j_cars
  */
-@Entity
-@Table(name = "auto_user")
 @Data
+@Table(name = "brand")
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
-public class User {
+public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    @EqualsAndHashCode.Include
-    private String login;
-    private String password;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
+    private String name;
 }

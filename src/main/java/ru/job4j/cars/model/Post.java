@@ -47,4 +47,6 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+
+    private boolean status;
 }

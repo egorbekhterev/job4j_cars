@@ -19,7 +19,7 @@ public class EngineRepository {
 
     private CrudRepository crudRepository;
 
-    public List<Engine> findAllOrderById() {
+    public List<Engine> findAll() {
         return crudRepository.query("SELECT i FROM Engine i ORDER BY i.id", Engine.class);
     }
 }

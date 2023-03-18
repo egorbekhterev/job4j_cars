@@ -8,26 +8,27 @@ import javax.persistence.*;
 
 /**
  * @author: Egor Bekhterev
- * @date: 08.03.2023
+ * @date: 18.03.2023
  * @project: job4j_cars
  */
-@Entity
-@Table(name = "auto_user")
 @Data
+@Table(name = "file")
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class User {
+public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    @EqualsAndHashCode.Include
-    private String login;
-    private String password;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    private String name;
+
+    private String path;
+
+    public File(String name, String path) {
+        this.name = name;
+        this.path = path;
     }
 }

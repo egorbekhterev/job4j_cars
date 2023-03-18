@@ -26,6 +26,14 @@ public class Car {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(name = "body_type_id")
+    private BodyType bodyType;
+
+    @ManyToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
 

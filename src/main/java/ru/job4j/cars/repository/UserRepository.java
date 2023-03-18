@@ -46,7 +46,7 @@ public class UserRepository {
      * Список пользователь отсортированных по id.
      * @return список пользователей.
      */
-    public List<User> findAllOrderById() {
+    public List<User> findAll() {
         return crudRepository.query("SELECT DISTINCT i FROM User i ORDER BY i.id", User.class);
     }
 
@@ -78,6 +78,6 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         return crudRepository.optional(
-                "SELECT DISTINCT i FROM User i WHERE i.LOGIN = :fLogin", User.class, Map.of("fLogin", login));
+                "SELECT DISTINCT i FROM User i WHERE i.login = :fLogin", User.class, Map.of("fLogin", login));
     }
 }
