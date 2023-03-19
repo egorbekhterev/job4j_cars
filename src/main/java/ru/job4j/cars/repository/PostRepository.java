@@ -35,24 +35,28 @@ public class PostRepository {
 
     public List<Post> findWithPhoto() {
         return crudRepository.query(
-                "SELECT i FROM Post i WHERE i.photo IS NOT NULL ORDER BY i.id", Post.class);
+                "SELECT i FROM Post i JOIN FETCH i.images img WHERE img IS NOT NULL ORDER BY i.id", Post.class);
     }
 
     public List<Post> findSameBrand(String brand) {
-        return crudRepository.query(
-                "SELECT i FROM Post i JOIN FETCH i.car WHERE i.car.name = :fName ORDER BY i.id",
-                Post.class, Map.of("fName", brand));
+        return crudRepository.query("""
+                        SELECT i FROM Post i
+                        JOIN FETCH i.car c
+                        JOIN FETCH c.brand
+                        WHERE c.brand.name = :fName
+                        ORDER BY i.id
+                        """, Post.class, Map.of("fName", brand));
     }
 
     public List<Post> findAll() {
         return crudRepository.query(
-                "SELECT DISTINCT i FROM Post i JOIN FETCH i.auto_user JOIN FETCH i.car ORDER BY i.id",
+                "SELECT DISTINCT i FROM Post i JOIN FETCH i.user JOIN FETCH i.car ORDER BY i.id",
                 Post.class);
     }
 
     public Optional<Post> findById(int id) {
         return crudRepository.optional(
-                "SELECT DISTINCT i FROM Post i JOIN FETCH i.auto_user JOIN FETCH i.car WHERE i.id = :fId",
+                "SELECT DISTINCT i FROM Post i JOIN FETCH i.user JOIN FETCH i.car WHERE i.id = :fId",
                 Post.class, Map.of("fId", id));
     }
 

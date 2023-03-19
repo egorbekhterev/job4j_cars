@@ -48,7 +48,7 @@ public class DriverRepositoryTest {
     }
 
     @Test
-        public void whenCreateDriversThenFindAll() {
+    public void whenCreateDriversThenFindAll() {
         User user1 = new User("user1", "password");
         User user2 = new User("user2", "password");
         Driver driver1 = new Driver();

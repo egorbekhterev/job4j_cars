@@ -23,7 +23,7 @@ public class FileRepository {
 
     private CrudRepository crudRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostRepository.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileRepository.class.getName());
 
     public Optional<File> save(File file) {
         Optional<File> rsl = Optional.empty();

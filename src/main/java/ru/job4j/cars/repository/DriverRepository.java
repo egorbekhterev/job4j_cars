@@ -23,7 +23,7 @@ public class DriverRepository {
 
     private CrudRepository crudRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostRepository.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Driver.class.getName());
 
     public List<Driver> findAll() {
         return crudRepository.query("SELECT i FROM Driver i JOIN FETCH i.user ORDER BY i.id", Driver.class);

@@ -14,10 +14,10 @@
     <include file="scripts/008_ddl_create_driver_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_create_history_owner_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/010_ddl_alter_auto_post_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/011_ddl_alter_auto_post_table_photo.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/012_ddl_create_brand_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/013_ddl_create_body_type_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/014_ddl_alter_car_table_brand_body.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/015_ddl_create_file_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/016_ddl_alter_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_brand_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_create_body_type_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_alter_car_table_brand_body.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_create_file_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/015_ddl_alter_auto_post_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/016_ddl_alter_file_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

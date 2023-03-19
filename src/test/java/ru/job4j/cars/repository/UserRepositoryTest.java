@@ -81,4 +81,16 @@ public class UserRepositoryTest {
         var result = userRepository.findByLogin("user2").get();
         assertThat(result).isEqualTo(user2);
     }
+
+    @Test
+    public void whenSavingUserWhoAlreadyExists() {
+        User user1 = new User("user1", "password");
+        userRepository.create(user1);
+
+        User user2 = new User("user1", "password");
+        userRepository.create(user2);
+
+        var result = userRepository.findAll();
+        assertThat(result).isEqualTo(List.of(user1));
+    }
 }
