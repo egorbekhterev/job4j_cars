@@ -88,9 +88,8 @@ public class UserRepositoryTest {
         userRepository.create(user1);
 
         User user2 = new User("user1", "password");
-        userRepository.create(user2);
 
-        var result = userRepository.findAll();
-        assertThat(result).isEqualTo(List.of(user1));
+        var result = userRepository.create(user2);
+        assertThat(result).isEmpty();
     }
 }

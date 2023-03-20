@@ -25,6 +25,7 @@ public class File {
 
     private String name;
 
+    @Column(unique = true)
     private String path;
 
     public File(String name, String path) {

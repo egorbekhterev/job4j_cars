@@ -22,8 +22,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
+
     @EqualsAndHashCode.Include
+    @Column(unique = true)
     private String login;
+
     private String password;
 
     public User(String login, String password) {

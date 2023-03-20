@@ -1,6 +1,8 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.cars.model.User;
 
 import java.util.List;
@@ -14,16 +16,25 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 public class UserRepository {
+
     private final CrudRepository crudRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostRepository.class.getName());
 
     /**
      * Сохранить в базе.
      * @param user пользователь.
      * @return пользователь с id.
      */
-    public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
-        return user;
+    public Optional<User> create(User user) {
+        Optional<User> rsl = Optional.empty();
+        try {
+            crudRepository.run(session -> session.persist(user));
+            rsl = Optional.of(user);
+        } catch (Exception e) {
+            LOGGER.error("Error in the save(User user) method.", e);
+        }
+        return rsl;
     }
 
     /**

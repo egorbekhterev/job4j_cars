@@ -42,7 +42,7 @@ public class FileRepositoryTest {
     }
 
     @Test
-    public void whenNotUniquePathAndSave() {
+    public void whenSavingNotUniquePathAndItIsEmpty() {
         File file1 = new File("test1", "/test");
         fileRepository.save(file1);
         File file2 = new File("test2", "/test");
