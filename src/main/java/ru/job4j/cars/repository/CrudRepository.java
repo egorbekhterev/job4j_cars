@@ -1,9 +1,11 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,8 @@ import java.util.function.Function;
  * @project: job4j_cars
  */
 @AllArgsConstructor
+@ThreadSafe
+@Repository
 public class CrudRepository {
 
     private final SessionFactory sf;
@@ -40,22 +44,19 @@ public class CrudRepository {
         }
     }
 
-    public void run(Consumer<Session> command) {
-        tx(session -> {
-            command.accept(session);
-            return null;
-        });
+    public boolean run(Function<Session, Boolean> command) {
+        return tx(command);
     }
 
-    public void run(String query, Map<String, Object> args) {
-        Consumer<Session> command = session -> {
+    public boolean run(String query, Map<String, Object> args) {
+        Function<Session, Boolean> command = session -> {
             var sq = session.createQuery(query);
             for (Map.Entry<String, Object> arg : args.entrySet()) {
                 sq.setParameter(arg.getKey(), arg.getValue());
             }
-            sq.executeUpdate();
+            return sq.executeUpdate() > 0;
         };
-        run(command);
+        return run(command);
     }
 
     public <T> Optional<T> optional(String query, Class<T> cl, Map<String, Object> args) {

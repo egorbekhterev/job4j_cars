@@ -32,7 +32,10 @@ public class DriverRepository {
     public Optional<Driver> save(Driver driver) {
         Optional<Driver> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(driver));
+            crudRepository.run(session -> {
+                session.persist(driver);
+                return true;
+            });
             rsl = Optional.of(driver);
         } catch (Exception e) {
             LOGGER.error("Error in the save(Driver driver) method.", e);

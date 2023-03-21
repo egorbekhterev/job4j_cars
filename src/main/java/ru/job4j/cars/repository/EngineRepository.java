@@ -5,9 +5,11 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.job4j.cars.model.Brand;
 import ru.job4j.cars.model.Engine;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,7 +29,10 @@ public class EngineRepository {
     public Optional<Engine> save(Engine engine) {
         Optional<Engine> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(engine));
+            crudRepository.run(session -> {
+                session.persist(engine);
+                return true;
+            });
             rsl = Optional.of(engine);
         } catch (Exception e) {
             LOGGER.error("Error in the save(Engine engine) method.", e);
@@ -37,5 +42,11 @@ public class EngineRepository {
 
     public List<Engine> findAll() {
         return crudRepository.query("SELECT i FROM Engine i ORDER BY i.id", Engine.class);
+    }
+
+    public Optional<Engine> findById(int id) {
+        return crudRepository.optional(
+                "SELECT i FROM Engine i WHERE i.id = :fId", Engine.class, Map.of("fId", id)
+        );
     }
 }

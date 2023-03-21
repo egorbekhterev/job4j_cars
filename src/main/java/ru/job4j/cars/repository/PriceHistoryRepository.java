@@ -27,7 +27,10 @@ public class PriceHistoryRepository {
     public Optional<PriceHistory> save(PriceHistory priceHistory) {
         Optional<PriceHistory> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(priceHistory));
+            crudRepository.run(session -> {
+                session.persist(priceHistory);
+                return true;
+            });
             rsl = Optional.of(priceHistory);
         } catch (Exception e) {
             LOGGER.error("Error in the save(PriceHistory priceHistory) method.", e);

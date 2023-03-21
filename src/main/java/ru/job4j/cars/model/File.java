@@ -28,6 +28,9 @@ public class File {
     @Column(unique = true)
     private String path;
 
+    @Column(name = "auto_post_id")
+    private int postId;
+
     public File(String name, String path) {
         this.name = name;
         this.path = path;

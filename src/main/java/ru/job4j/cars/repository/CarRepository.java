@@ -28,7 +28,10 @@ public class CarRepository {
     public Optional<Car> save(Car car) {
         Optional<Car> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(car));
+            crudRepository.run(session -> {
+                session.persist(car);
+                return true;
+            });
             rsl = Optional.of(car);
         } catch (Exception e) {
             LOGGER.error("Error in the save(Car car) method.", e);

@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Brand;
+import ru.job4j.cars.model.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,7 +29,10 @@ public class BrandRepository {
     public Optional<Brand> save(Brand brand) {
         Optional<Brand> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(brand));
+            crudRepository.run(session -> {
+                session.persist(brand);
+                return true;
+            });
             rsl = Optional.of(brand);
         } catch (Exception e) {
             LOGGER.error("Error in the save(Brand brand) method.", e);
@@ -37,5 +42,11 @@ public class BrandRepository {
 
     public List<Brand> findAll() {
         return crudRepository.query("SELECT i FROM Brand i ORDER BY i.id", Brand.class);
+    }
+
+    public Optional<Brand> findById(int id) {
+        return crudRepository.optional(
+                "SELECT i FROM Brand i WHERE i.id = :fId", Brand.class, Map.of("fId", id)
+        );
     }
 }

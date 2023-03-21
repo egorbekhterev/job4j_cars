@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.BodyType;
+import ru.job4j.cars.model.Brand;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,7 +29,10 @@ public class BodyTypeRepository {
     public Optional<BodyType> save(BodyType bodyType) {
         Optional<BodyType> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(bodyType));
+            crudRepository.run(session -> {
+                session.persist(bodyType);
+                return true;
+            });
             rsl = Optional.of(bodyType);
         } catch (Exception e) {
             LOGGER.error("Error in the save(BodyType bodyType) method.", e);
@@ -37,5 +42,11 @@ public class BodyTypeRepository {
 
     public List<BodyType> findAll() {
         return crudRepository.query("SELECT i FROM BodyType i ORDER BY i.id", BodyType.class);
+    }
+
+    public Optional<BodyType> findById(int id) {
+        return crudRepository.optional(
+                "SELECT i FROM BodyType i WHERE i.id = :fId", BodyType.class, Map.of("fId", id)
+        );
     }
 }

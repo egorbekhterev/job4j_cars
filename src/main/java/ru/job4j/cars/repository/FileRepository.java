@@ -28,7 +28,10 @@ public class FileRepository {
     public Optional<File> save(File file) {
         Optional<File> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(file));
+            crudRepository.run(session -> {
+                session.persist(file);
+                return true;
+            });
             rsl = Optional.of(file);
         } catch (Exception e) {
             LOGGER.error("Error in the save(File file) method.", e);
@@ -45,7 +48,12 @@ public class FileRepository {
         return crudRepository.query("SELECT i FROM File i ORDER BY i.id", File.class);
     }
 
-    public void deleteById(int id) {
-        crudRepository.run("DELETE File WHERE id = :fId", Map.of("fId", id));
+    public boolean deleteById(int id) {
+        return crudRepository.run("DELETE File WHERE id = :fId", Map.of("fId", id));
+    }
+
+    public List<File> findByPostId(int id) {
+        return crudRepository.query(
+                "SELECT i FROM File i WHERE i.postId = :fId", File.class, Map.of("fId", id));
     }
 }

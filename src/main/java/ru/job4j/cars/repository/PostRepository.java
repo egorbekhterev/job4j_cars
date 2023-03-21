@@ -50,7 +50,7 @@ public class PostRepository {
 
     public List<Post> findAll() {
         return crudRepository.query(
-                "SELECT DISTINCT i FROM Post i JOIN FETCH i.user JOIN FETCH i.car ORDER BY i.id",
+                "SELECT DISTINCT i FROM Post i JOIN FETCH i.user JOIN FETCH i.car JOIN FETCH i.images ORDER BY i.id",
                 Post.class);
     }
 
@@ -63,7 +63,10 @@ public class PostRepository {
     public Optional<Post> save(Post post) {
         Optional<Post> rsl = Optional.empty();
         try {
-            crudRepository.run(session -> session.persist(post));
+            crudRepository.run(session -> {
+                session.persist(post);
+                return true;
+            });
             rsl = Optional.of(post);
         } catch (Exception e) {
             LOGGER.error("Error in the save(Post post) method.", e);
