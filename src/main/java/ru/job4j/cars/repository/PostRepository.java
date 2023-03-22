@@ -73,4 +73,14 @@ public class PostRepository {
         }
         return rsl;
     }
+
+    public boolean deleteById(int id) {
+        return crudRepository.run("DELETE FROM Post WHERE id = :fId", Map.of("fId", id));
+    }
+
+    public boolean updateStatusField(Post post) {
+        return crudRepository.run("UPDATE Post SET status = :fStatus WHERE id = :fId", Map.of(
+                "fStatus", true,
+                "fId", post.getId()));
+    }
 }

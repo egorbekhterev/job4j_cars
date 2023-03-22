@@ -31,6 +31,10 @@ public class PostRepositoryTest {
         post.setCar(car);
         postRepository.save(post);
 
+        File file = new File("image", "/path");
+        file.setPostId(post.getId());
+        fileRepository.save(file);
+
         var result = postRepository.findAll();
         assertThat(result).isEqualTo(List.of(post));
     }
@@ -95,14 +99,14 @@ public class PostRepositoryTest {
 
     @Test
     public void whenSavePostsWithPhotoThenFindAll() {
-        File file = new File("test", "/test");
-        fileRepository.save(file);
-
         Post post1 = new Post();
-        post1.setImages(List.of(file));
         postRepository.save(post1);
         Post post2 = new Post();
         postRepository.save(post2);
+
+        File file = new File("test", "/test");
+        file.setPostId(post1.getId());
+        fileRepository.save(file);
 
         var result = postRepository.findWithPhoto();
         assertThat(result).isEqualTo(List.of(post1));

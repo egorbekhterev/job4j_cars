@@ -52,8 +52,8 @@ public class FileRepository {
         return crudRepository.run("DELETE File WHERE id = :fId", Map.of("fId", id));
     }
 
-    public List<File> findByPostId(int id) {
+    public List<File> findByPostId(int postId) {
         return crudRepository.query(
-                "SELECT i FROM File i WHERE i.postId = :fId", File.class, Map.of("fId", id));
+                "SELECT i FROM File i WHERE i.postId = :fId ORDER BY i.id", File.class, Map.of("fId", postId));
     }
 }
