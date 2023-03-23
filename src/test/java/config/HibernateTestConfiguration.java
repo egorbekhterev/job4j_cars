@@ -15,7 +15,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateTestConfiguration {
 
     /**
-     * Создание стандартного реестр сервисов, используя файл конфигурации.
+     * Создание стандартного реестра сервисов, используя файл конфигурации.
      */
     private final static StandardServiceRegistry REGISTRY = new StandardServiceRegistryBuilder().configure().build();
 
