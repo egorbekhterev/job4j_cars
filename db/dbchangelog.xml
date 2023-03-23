@@ -23,4 +23,5 @@
     <include file="scripts/017_dml_insert_into_brand_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/018_dml_insert_into_body_type_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/019_dml_insert_into_engine_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/020_ddl_alter_auto_post_table_price.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

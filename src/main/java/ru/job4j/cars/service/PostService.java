@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * Сервисный класс для сохранения нового поста и связанных с ним файлов
  * @author: Egor Bekhterev
  * @date: 19.03.2023
  * @project: job4j_cars
@@ -26,17 +27,32 @@ public class PostService {
 
     private FileService fileService;
 
+    /**
+     * Сохраняет новые файлы, связанные с заданным постом. Связывает список файлов, созданных этим методом
+     * с постом, с постом, который был сохранен в базе данных.
+     * @param post   пост, с которым связаны новые файлы.
+     * @param image  массив объектов FileDto, содержащий информацию о новых файлах.
+     */
     private void saveNewFile(Post post, FileDto[] image) {
         List<File> files = Arrays.stream(image)
-                .map(fileService::save)
+                .map(fileDto -> fileService.save(fileDto, post))
                 .filter(Optional::isPresent)
                 .map(Optional::get).toList();
         post.setImages(files);
     }
 
+    /**
+     * Сохраняет заданный пост и связанные с ним файлы. Логика сохранения следующая: сначала сохраняется сам пост,
+     * а только потом файл, чтобы можно было передать id поста в таблицу files.
+     * @param post   пост, который нужно сохранить.
+     * @param image  массив объектов FileDto, содержащие информацию о файлах, связанных с этим постом.
+     * @return       объект Optional<Post>, содержащий сохраненный пост, если операция прошла успешно,
+     * или пустой Optional, если произошла ошибка
+     */
     public Optional<Post> save(Post post, FileDto[] image) {
+        var rsl = postRepository.save(post);
         saveNewFile(post, image);
-        return postRepository.save(post);
+        return rsl;
     }
 
     public List<Post> findAll() {
@@ -57,5 +73,13 @@ public class PostService {
 
     public List<Post> findSameBrand(String brand) {
         return postRepository.findSameBrand(brand);
+    }
+
+    public boolean deleteById(int id) {
+        return postRepository.deleteById(id);
+    }
+
+    public boolean updateStatusField(Post post) {
+        return postRepository.updateStatusField(post);
     }
 }

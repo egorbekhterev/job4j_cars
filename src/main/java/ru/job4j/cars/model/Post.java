@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Модель объявления о продаже автомобиля.
  * @author: Egor Bekhterev
  * @date: 12.03.2023
  * @project: job4j_cars
@@ -34,11 +35,11 @@ public class Post {
     @JoinColumn(name = "auto_user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "auto_post_id")
     private List<PriceHistory> priceHistories = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "participates",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -50,9 +51,11 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "auto_post_id")
     private List<File> images = new ArrayList<>();
 
     private boolean status;
+
+    private int price;
 }

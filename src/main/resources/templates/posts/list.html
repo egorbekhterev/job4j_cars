@@ -48,25 +48,25 @@
                 <tr align="center" valign="middle">
                     <th>Image</th>
                     <th>Model</th>
-                    <th>Description</th>
-                    <th>Creation Date</th>
-                    <th>Post Owner</th>
                     <th>Brand</th>
                     <th>Body</th>
                     <th>Engine</th>
+                    <th>Price, RUB.</th>
+                    <th>Creation Date</th>
+                    <th>Post Owner</th>
                     <th>Sold</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr align="center" th:each="post: ${posts}">
-                    <td><img th:src="@{/files/{fileId}(fileId=)}" class="w-100" alt="No image"></td>
+                <tr align="center" th:each="post, postStat: ${posts}">
+                    <td><img th:src="@{/files/{fileId}(fileId=${files[postStat.index].id})}" width="200" height="150" alt="No image" style="border-radius: 7%;"></td>
                     <td><a th:text="${post.car.name}"  th:href="@{/posts/{postId}(postId=${post.id})}"></a></td>
-                    <td th:text="${post.description}"></td>
-                    <td th:text="${{post.created}}"></td>
-                    <td th:text="${post.user.login}"></td>
                     <td th:text="${post.car.brand.name}"></td>
                     <td th:text="${post.car.bodyType.name}"></td>
                     <td th:text="${post.car.engine.name}"></td>
+                    <td th:text="${post.price}"></td>
+                    <td th:text="${{post.created}}"></td>
+                    <td th:text="${post.user.login}"></td>
                     <td>
                         <span th:if="${post.status}">
                             <i class="bi bi-check-square"></i>

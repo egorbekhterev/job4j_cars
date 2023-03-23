@@ -14,11 +14,6 @@
             background-color: #ff0000;
         }
 
-            .image-size {
-            width: 200px;
-            height: 150px;
-        }
-
         .image-container {
             display: flex;
             flex-wrap: wrap;
@@ -57,7 +52,7 @@
     <div class="container">
         <div class="mb-3 image-container">
             <div th:each="image :${images}" class="img-wrapper">
-                <img th:src="@{/files/{fileId}(fileId=*{image.id})}" class="image-size" alt="No image">
+                <img th:src="@{/files/{fileId}(fileId=*{image.id})}" class="w-100" alt="No image" style="border-radius: 7%;">
             </div>
         </div>
         <form class="mt-3" th:object="${post}" enctype="multipart/form-data">
@@ -95,7 +90,13 @@
                                 <i type="text" class="form-control" id="engine" name="engine" th:text="${post.car.engine.name}"></i>
                             </div>
                         </div>
-                        <div class="mb-3">
+                    <div class="row" align="center">
+                        <div class="col-4">
+                            <label for="price" class="form-label"><b>Price, RUB.</b></label>
+                            <i type="text" class="form-control" id="price" name="price" th:text="${post.price}"></i>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                             <input type="checkbox" class="form-check-input" style="margin-top: 14px;" id="status" th:checked="${post.status}" disabled>
                             <label class="form-check-label" for="status" style="margin-top: 10px;">Sold</label>
                         </div>
@@ -105,8 +106,8 @@
                 <div class="col-6"></div>
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/posts/update/{id}(id=${post.id})}">Delete</a></div>
-                        <div class="col-6"><a class="btn btn-success w-100" th:href="@{/posts/update/{id}(id=${post.id})}">Update</a></div>
+                        <div class="col-6"></div>
+                        <div class="col-6"><a class="btn btn-success w-100" th:href="@{/posts/sell/{id}(id=${post.id})}">Sell</a></div>
                     </div>
                 </div>
             </div>

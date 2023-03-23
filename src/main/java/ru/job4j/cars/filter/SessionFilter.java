@@ -46,7 +46,8 @@ public class SessionFilter extends HttpFilter {
      * @param chain- фильтр из цепочки фильтров.
      */
     @Override
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         var session = request.getSession();
         addUserToSession(session, request);
         chain.doFilter(request, response);
