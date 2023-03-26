@@ -5,7 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cars.model.Brand;
 import ru.job4j.cars.model.Engine;
 
 import java.util.List;
